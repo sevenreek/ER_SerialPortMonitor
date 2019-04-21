@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 class CommandInterpreter
 {
-    public delegate void CommandDelegate();
+    public delegate void CommandDelegate(string arg);
     Dictionary<string, CommandDelegate> functionSet;
     StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
     public CommandInterpreter()
@@ -16,14 +16,19 @@ class CommandInterpreter
     }
     public bool Interpret(string command)
     {
-        string[] splitCommand = command.Split(' ');
+        Console.WriteLine("Parsing " + command);
+        string[] splitCommand = command.Split(new char[] { ' ', '\r' });
         Dictionary<string, CommandDelegate>.Enumerator enumerator = functionSet.GetEnumerator();
         while(stringComparer.Compare(enumerator.Current.Key, splitCommand[0]) != 0)
         {
             if (!enumerator.MoveNext())
                 return false;
         }
-        enumerator.Current.Value();
+
+        if (splitCommand.Length>1)
+            enumerator.Current.Value(splitCommand[1]);
+        else
+            enumerator.Current.Value("");
         return true;
     }
     public bool AddFunctionHandler(string command, CommandDelegate handler)

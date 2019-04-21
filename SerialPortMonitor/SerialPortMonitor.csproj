@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>SerialPortMonitor</RootNamespace>
     <AssemblyName>SerialPortMonitor</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -63,6 +63,35 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mp3\10_ENG.mp3" />
+    <Content Include="mp3\10_POL.mp3" />
+    <Content Include="mp3\11_ENG.mp3" />
+    <Content Include="mp3\11_POL.mp3" />
+    <Content Include="mp3\12_ENG.mp3" />
+    <Content Include="mp3\12_POL.mp3" />
+    <Content Include="mp3\13_ENG.mp3" />
+    <Content Include="mp3\13_POL.mp3" />
+    <Content Include="mp3\14_ENG.mp3" />
+    <Content Include="mp3\1_ENG.mp3" />
+    <Content Include="mp3\1_POL.mp3" />
+    <Content Include="mp3\2_ENG.mp3" />
+    <Content Include="mp3\2_POL.mp3" />
+    <Content Include="mp3\3_ENG.mp3" />
+    <Content Include="mp3\3_POL.mp3" />
+    <Content Include="mp3\4_ENG.mp3" />
+    <Content Include="mp3\4_POL.mp3" />
+    <Content Include="mp3\5_ENG.mp3" />
+    <Content Include="mp3\5_POL.mp3" />
+    <Content Include="mp3\6_ENG.mp3" />
+    <Content Include="mp3\6_POL.mp3" />
+    <Content Include="mp3\7_ENG.mp3" />
+    <Content Include="mp3\7_POL.mp3" />
+    <Content Include="mp3\8_ENG.mp3" />
+    <Content Include="mp3\8_POL.mp3" />
+    <Content Include="mp3\9_ENG.mp3" />
+    <Content Include="mp3\9_POL.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

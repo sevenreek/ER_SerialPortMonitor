@@ -14,6 +14,8 @@ class Program
     public const int RETURN_OK = 0;
     static int Main(string[] args)
     {
+        StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
+        bool isRunning = true;
         SerialPortMonitor serialPortMonitor;
         if (args.Length != 2 && args.Length != 6)
         {
@@ -28,12 +30,34 @@ class Program
             return RETURN_INCORRECT_ARG;
         }
         CommandInterpreter interpreter = new CommandInterpreter();
-        interpreter.AddFunctionHandler(Commands.CMD_PLAY_NARRATION)
+        SoundPlayer soundPlayer = new SoundPlayer();
+        interpreter.AddFunctionHandler(Commands.CMD_PLAY_NARRATION, soundPlayer.PlaySound);
         serialPortMonitor = new SerialPortMonitor(args[0], baudrate);
         serialPortMonitor.AddToOnReadEvent(interpreter.Interpret);
-
-
-
+        soundPlayer.OnStatusChange += state =>
+        {
+            switch (state)
+            {
+                case (int)WMPLib.WMPPlayState.wmppsMediaEnded:
+                    if (soundPlayer.lastPlayed == 1)
+                    {
+                        serialPortMonitor.Write(Commands.CMD_TORCH_LIGHT);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        };
+        while (isRunning)
+        {
+            string msg = Console.ReadLine();
+            if (stringComparer.Equals(msg, "quit"))
+            {
+                isRunning = false;
+            }
+            serialPortMonitor.Kill();
+            
+        }
 
         return RETURN_OK;
     }

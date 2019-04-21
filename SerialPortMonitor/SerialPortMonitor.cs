@@ -41,16 +41,7 @@ class SerialPortMonitor
         isRunning = true;
         reader.Start();
         Console.WriteLine("SerialPortMonitor running.");
-        while(isRunning)
-        {
-            msg = Console.ReadLine();
-            if (stringComparer.Equals(msg, "quit"))
-            {
-                isRunning = false;
-            }
-            reader.Join();
-            serialPort.Close();
-        }
+        
     }
     private void ReaderRead()
     {
@@ -73,4 +64,15 @@ class SerialPortMonitor
     {
         OnLineRead = null;
     }
+    public void Kill()
+    {
+        isRunning = false;
+        reader.Join();
+        serialPort.Close();
+    }
+    public void Write(string cmd)
+    {
+        serialPort.Write(cmd+"\n");
+    }
+
 }
