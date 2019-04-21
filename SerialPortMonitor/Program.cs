@@ -27,8 +27,10 @@ class Program
             Console.WriteLine("Baudrate argument could not be parsed.");
             return RETURN_INCORRECT_ARG;
         }
+        CommandInterpreter interpreter = new CommandInterpreter();
+        interpreter.AddFunctionHandler(Commands.CMD_PLAY_NARRATION)
         serialPortMonitor = new SerialPortMonitor(args[0], baudrate);
-
+        serialPortMonitor.AddToOnReadEvent(interpreter.Interpret);
 
 
 

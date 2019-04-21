@@ -18,6 +18,8 @@ class SerialPortMonitor
     public const int DEFAULT_CONFIG_TIMEOUT = 500;
     public const int RETURN_INCORRECT_ARG = 1;
     public const int RETURN_OK = 0;
+    public delegate bool OnLineReadDelegate(string cmd);
+    OnLineReadDelegate OnLineRead;
     bool isRunning;
     SerialPort serialPort;
     Thread reader;
@@ -57,9 +59,18 @@ class SerialPortMonitor
             try
             {
                 string msg = serialPort.ReadLine();
+                OnLineRead(msg);
                 Console.WriteLine(msg);
             }
             catch (TimeoutException) { }
         }
+    }
+    public void AddToOnReadEvent(OnLineReadDelegate del)
+    {
+        OnLineRead += del;
+    }
+    public void ClearEvent()
+    {
+        OnLineRead = null;
     }
 }
