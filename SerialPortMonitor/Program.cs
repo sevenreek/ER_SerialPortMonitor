@@ -54,8 +54,10 @@ class Program
             if (stringComparer.Equals(msg, "quit"))
             {
                 isRunning = false;
+                serialPortMonitor.Kill();
+                break;
             }
-            serialPortMonitor.Kill();
+            serialPortMonitor.Write(msg);
             
         }
 
